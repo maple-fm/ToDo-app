@@ -11,26 +11,39 @@ struct ContentView: View {
     var body: some View {
         NavigationView{
             VStack{
-                ScrollView(.vertical, showsIndicators: false){
-                    ForEach(1..<6){ i in
-                        Image("TODOList")
-                            .padding(.bottom, -30)
+                ZStack(){
+                    ScrollView(.vertical, showsIndicators: false){
+
+                        ForEach(1..<50){ i in
+                            Image("TODOList")
+                                .padding(.bottom, -30)
+                         
+                        }
+               
+                    }
+
+                    ScrollView([]){
+                        Image("Floating Button")
+                            .padding(.trailing)
+                            .frame(alignment: .bottomTrailing)
                             
-                            
-                        
                     }
                     
-                    .navigationTitle("TODOリスト")
+                    
                 }
+  
             }
+            .navigationTitle("TODOリスト")
+            
+            
         }
 
             
        
-
-
     }
+
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
