@@ -9,8 +9,26 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationView{
+            VStack{
+                ScrollView(.vertical, showsIndicators: false){
+                    ForEach(1..<6){ i in
+                        Image("TODOList")
+                            .padding(.bottom, -30)
+                            
+                            
+                        
+                    }
+                    
+                    .navigationTitle("TODOリスト")
+                }
+            }
+        }
+
+            
+       
+
+
     }
 }
 
