@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var newcreate = false
     var body: some View {
         NavigationView{
             VStack{
@@ -22,12 +23,20 @@ struct ContentView: View {
                
                     }
 
-                    ScrollView([]){
+                    Button(action: {
+                        self.newcreate.toggle()
+                    }){
                         Image("Floating Button")
-                            .padding(.trailing)
-                            .frame(alignment: .bottomTrailing)
-                            
+                            .padding(EdgeInsets(
+                            top: 550, leading: 270, bottom: 0, trailing: 0))
                     }
+                    .sheet(isPresented: $newcreate){
+                        NewCreateView()
+                    }
+                           
+                            
+                            
+                    
                     
                     
                 }
