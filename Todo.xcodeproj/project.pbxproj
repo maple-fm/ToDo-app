@@ -19,6 +19,8 @@
 		00A569832852420000816F44 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00A569582852420000816F44 /* Assets.xcassets */; };
 		00D55D532858A5F700752718 /* NewCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D55D522858A5F700752718 /* NewCreateView.swift */; };
 		00D55D542858A5F700752718 /* NewCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D55D522858A5F700752718 /* NewCreateView.swift */; };
+		F54DC2F02872F5920087B68A /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54DC2EF2872F5920087B68A /* Todo.swift */; };
+		F54DC2F12872F5920087B68A /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54DC2EF2872F5920087B68A /* Todo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +54,7 @@
 		00A5697A2852420000816F44 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		00A5697C2852420000816F44 /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
 		00D55D522858A5F700752718 /* NewCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCreateView.swift; sourceTree = "<group>"; };
+		F54DC2EF2872F5920087B68A /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +106,7 @@
 				00A56956285241FD00816F44 /* TodoApp.swift */,
 				00A56957285241FD00816F44 /* ContentView.swift */,
 				00D55D522858A5F700752718 /* NewCreateView.swift */,
+				F54DC2EF2872F5920087B68A /* Todo.swift */,
 				00A569582852420000816F44 /* Assets.xcassets */,
 			);
 			path = Shared;
@@ -306,6 +310,7 @@
 				00A569802852420000816F44 /* ContentView.swift in Sources */,
 				00D55D532858A5F700752718 /* NewCreateView.swift in Sources */,
 				00A5697E2852420000816F44 /* TodoApp.swift in Sources */,
+				F54DC2F02872F5920087B68A /* Todo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,6 +321,7 @@
 				00A569812852420000816F44 /* ContentView.swift in Sources */,
 				00D55D542858A5F700752718 /* NewCreateView.swift in Sources */,
 				00A5697F2852420000816F44 /* TodoApp.swift in Sources */,
+				F54DC2F12872F5920087B68A /* Todo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
