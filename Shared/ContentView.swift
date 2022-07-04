@@ -10,47 +10,37 @@ import SwiftUI
 struct ContentView: View {
     @State private var newcreate = false
     var body: some View {
-        NavigationView{
-            VStack{
-                ZStack(){
-                    ScrollView(.vertical, showsIndicators: false){
+        VStack{
+            Text("TODOリスト")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .frame(width: 342, height: 28, alignment: .topLeading)
+                .padding(EdgeInsets(
+                    top:0,
+                    leading: 24,
+                    bottom:0,
+                    trailing: 24))
 
-                        ForEach(1..<50){ i in
-                            Image("TODOList")
-                                .padding(.bottom, -30)
-                         
-                        }
-               
-                    }
+            Button(action: {
+                self.newcreate.toggle()
+            }){
+                Image("Floating Button")
+                    .frame(width: 20.5, height: 30.5)
 
-                    Button(action: {
-                        self.newcreate.toggle()
-                    }){
-                        Image("Floating Button")
-                            .padding(EdgeInsets(
-                            top: 550, leading: 270, bottom: 0, trailing: 0))
-                    }
-                    .sheet(isPresented: $newcreate){
-                        NewCreateView()
-                    }
-                           
-                            
-                            
-                    
-                    
-                    
-                }
-  
             }
-            .navigationTitle("TODOリスト")
-            
+            .sheet(isPresented: $newcreate){
+                NewCreateView()
+            }
+            .padding(EdgeInsets(
+                top: UIScreen.main.bounds.size.height-250 ,
+                leading: UIScreen.main.bounds.size.width-150,
+                bottom:0,
+                trailing: 0))
+        
             
         }
-
-            
-       
+   
     }
-
 }
 
 
@@ -59,3 +49,4 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
