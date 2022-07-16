@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var newcreate = false
+
     var body: some View {
         VStack{
             Text("TODOリスト")
@@ -29,7 +30,7 @@ struct ContentView: View {
 
             }
             .sheet(isPresented: $newcreate){
-                NewCreateView(todo: Todo(name: "", deadline: "", description: ""))
+                NewCreateView(input: Todo(name: "", deadline: Date.now, description: ""))
             }
             .padding(EdgeInsets(
                 top: UIScreen.main.bounds.size.height-250 ,
@@ -39,6 +40,7 @@ struct ContentView: View {
         
             
         }
+  
    
     }
 }

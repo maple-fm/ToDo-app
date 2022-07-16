@@ -6,117 +6,158 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct NewCreateView: View {
+    var categories = ["仕事", "遊び", "勉強","その他" ]
     @State private var close = false
-//    @State private var aTask = ""
-//    @State private var Date = ""
-    @State private var aCategory = UIColor.red
-//    @State private var description = ""
+    @State private var kijitu = ""
+    @State private var aCategory = 0
     @State var todo: Todo
     @Environment(\.dismiss) var dismiss
     
+    init(input: Todo) {
+        _todo = State(initialValue: input)
+        UITableView.appearance().backgroundColor = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1)
+        
+    }
+    
+    
+    
 
     var body: some View {
-        ScrollView{
-            VStack{
-                HStack(spacing: 97.51){
-                    Text("新規作成")
+        VStack{
+            NavigationView{
+                Form{
+                   
+                    Section(header: Text("タスク名")
                         .font(.title2)
                         .fontWeight(.bold)
-
-                    Button("×"){
-                        
-                        dismiss()
-
+                        .foregroundColor(Color.black)
+                    ) {
+                        TextField("20文字以内で入力してください", text: $todo.name)
                     }
-                    .foregroundColor(Color.blue)
-                    .font(.largeTitle)
+                    .padding(EdgeInsets(
+                        top: 0,
+                        leading:5,
+                        bottom: 10,
+                        trailing: 0 ))
                     
-                    
-                }
-                .frame(alignment: .top)
-                .padding(EdgeInsets(
-                    top: 900-UIScreen.main.bounds.size.height,
-                    leading:500-UIScreen.main.bounds.size.width,
-                    bottom:0,
-                    trailing: 0))
-                Divider()
-           
-                Group{
-                    
-                    Text("タスク名")
-                        .padding(.top, 33)
-                    TextField("20文字以内で入力してください", text: $todo.name)
-                        .frame(width: 326, height: 60)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        
-
-                    Text("期日")
-                        .padding(.top, 33)
-                    TextField("年/月/日", text: $todo.deadline)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                    
-                    Text("カテゴリー")
-                        .padding(.top, 33)
+                    Section(header: Text("期日")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.black)) {
+                        TextField("年/月/日", text: $kijitu)
+                            
+                    }
+                        .padding(EdgeInsets(
+                            top: 5,
+                            leading:5,
+                            bottom: 10,
+                            trailing: 0 ))
                 
-                    NavigationView{
-                        Form{
-                            Picker("選択してください", selection: $aCategory){
-                                Text("仕事").tag(UIColor.red)
-                                Text("勉強").tag(UIColor.blue)
-                                Text("遊び").tag(UIColor.yellow)
-                                Text("その他").tag(UIColor.gray)
+                    
+//                    DatePicker("期日",
+//                               selection: $todo.deadline,
+//                               displayedComponents: [.date])
+//                    //                    .background(Color(red: 0.15, green: 0.33, blue: 0.8, opacity: 0.04))
+//                    .padding(EdgeInsets(
+//                        top: 33,
+//                        leading: 20,
+//                        bottom: 30,
+//                        trailing: 28))
+                    
+                    
+                    Section(header: Text("カテゴリー")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.black)
+                    ) {
+                        Picker("選択してくだいさい", selection: $aCategory) {
+                            ForEach(0..<categories.count, id: \.self) { index in
+                                Text(self.categories[index])
                             }
                         }
                     }
-
+                    .padding(EdgeInsets(
+                        top: 0,
+                        leading:5,
+                        bottom: 10,
+                        trailing: 0 ))
                     
-                    
-                    
-                    Text("詳細")
-                        .padding(.top, 33)
-                    TextField("詳細", text: $todo.description)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding(.bottom, 155)
-                    
-                    
-                }
-                .frame(width: 326, alignment: .leading)
-    //            .padding(EdgeInsets(
-    //                top:0,
-    //                leading: 0,
-    //                bottom:33,
-    //                trailing: 0
-    //            ))
-            
-
-                
-                Section{
-                    Button(action:{}){
-                        Text("作成する")
-                            .frame(width: 310, height: 60)
+                    Section(header: Text("詳細")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.black)) {
+                        TextField("入力してください", text: $todo.description)
+//                            .background(Color(red: 0.15, green: 0.33, blue: 0.8, opacity: 0.04))
+//                            .textFieldStyle(RoundedBorderTextFieldStyle())
                     }
-                    .frame(width: 342, height: 60)
-                    .foregroundColor(todo.name.isEmpty ? Color.black : Color.white)
-                    .background(todo.name.isEmpty ? Color.gray : Color.blue)
-                    .disabled(todo.name.isEmpty)
-
-                    .cornerRadius(15)
-                    
+                    .padding(EdgeInsets(
+                        top: 0,
+                        leading:5,
+                        bottom: 10,
+                        trailing: 0 ))
+                    //                            .padding(.top, 0)
+//                    TextField("入力してください", text: $todo.description)
+//                        .background(Color(red: 0.15, green: 0.33, blue: 0.8, opacity: 0.04))
+//                        .textFieldStyle(RoundedBorderTextFieldStyle())
                 }
+                .navigationTitle("新規作成")
+                .border(Color.gray, width: 0.5)
+//                .navigationBarHidden(false)
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarItems(
+                    trailing:
+                        Button("×"){
+                            
+                            dismiss()
+                            
+                        }
+                        .foregroundColor(Color.blue)
+                        .font(.largeTitle)
+                    
+                )
                 
-//                .background(Color.blue)
-
                 
             }
-        
+//            .frame(alignment: .leading)
+            
+
+            
+            Section{
+                Button(action:{}){
+                    Text("作成する")
+                        .frame(width: 310, height: 60)
+                }
+                .frame(width: 342, height: 60)
+                .foregroundColor(todo.name.isEmpty ? Color.black : Color.white)
+                .background(todo.name.isEmpty ? Color.gray : Color.blue)
+                .disabled(todo.name.isEmpty)
+
+                .cornerRadius(15)
+                
+            }
+            .padding(EdgeInsets(
+                top: 0,
+                leading: 0,
+                bottom: 0,
+                trailing: 0))
         }
+            
+
     }
 }
 
+
+        
+    
+
+
+
 struct NewCreateView_Previews: PreviewProvider {
     static var previews: some View {
-        NewCreateView(todo: Todo(name: "", deadline: "", description: ""))
+        NewCreateView(input: Todo(name: "", deadline: Date.now, description: ""))
+            
     }
 }
