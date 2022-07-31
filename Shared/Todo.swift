@@ -6,29 +6,20 @@
 //
 
 import Foundation
-import UIKit
 
 struct Todo{
     var name: String // タスク名
-    var deadline: Date // 期日
-//    var category: String 
+    var deadline: String // 期日
+    var category: Int // カテゴリー
     var description: String // 詳細
-    
-    class DateUtils {
-        class func dateFromString(string: String, format: String) -> Date {
-            let formatter: DateFormatter = DateFormatter()
-            formatter.calendar = Calendar(identifier: .gregorian)
-            formatter.dateFormat = format
-            return formatter.date(from: string)!
-        }
 
-        class func stringFromDate(date: Date, format: String) -> String {
-            let formatter: DateFormatter = DateFormatter()
-            formatter.calendar = Calendar(identifier: .gregorian)
-            formatter.dateFormat = format
-            return formatter.string(from: date)
-        }
+    init(name: String = "", deadline: String = "", category: Int = 0, description: String = "") {
+        self.name = name
+        self.deadline = deadline
+        self.category = category
+        self.description = description
     }
+
 }
 
 
