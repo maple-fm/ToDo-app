@@ -9,25 +9,25 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var newcreate = false
+    @ObservedObject var viewModel = NewCreateViewModel()
 
     private var frameWidth: CGFloat {
         UIScreen.main.bounds.width
     }
 
+    private var frameHeight: CGFloat {
+        UIScreen.main.bounds.height / 20
+    }
+
     var body: some View {
-        ZStack {
-            Color.white
-                .ignoresSafeArea(.all)
-            VStack{
-                Text("TODOリスト")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .frame(width: frameWidth, height: 0, alignment: .leading)
-                    .padding(EdgeInsets(
-                        top:0,
-                        leading: 60,
-                        bottom:0,
-                        trailing: 0))
+        NavigationView {
+            ZStack {
+                List {
+                    ForEach(viewModel.todoList) { task in
+                        Text(task.name)
+                    }
+                }
+                .navigationTitle("TODOリスト")
 
                 Button(action: {
                     self.newcreate.toggle()
@@ -44,11 +44,9 @@ struct HomeView: View {
                     leading: UIScreen.main.bounds.size.width-150,
                     bottom:0,
                     trailing: 0))
-
             }
         }
     }
-
 }
 
 

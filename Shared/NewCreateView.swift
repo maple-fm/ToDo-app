@@ -13,6 +13,7 @@ struct NewCreateView: View {
     @ObservedObject var viewModel = NewCreateViewModel()
     @State private var close = false
     @State var todo: Todo
+    @State private var data = Data()
     private var adjust: CGFloat = 10
     @Environment(\.dismiss) var dismiss
 
@@ -36,21 +37,25 @@ struct NewCreateView: View {
         VStack{
             NavigationView{
                 Form{
-                   
                     Section(header: Text("タスク名")
                         .NewItem()
                     ) {
                         TextField("20文字以内で入力してください", text: $viewModel.name)
                     }
                     .frame(width: frameWidth, height: frameHeight-adjust, alignment: .leading)
-
+                    
                     Section(header: Text("期日")
                         .NewItem()
-
                     ) {
-                        TextField("年/月/日", text: $viewModel.deadline)
+                        DatePicker(
+                        "年/月/日",
+                        selection: $viewModel.deadline,
+                        displayedComponents: [.date]
+                        )
+                        .frame(width: frameWidth-adjust*8)
                     }
-                    .frame(width: frameWidth, height: frameHeight-adjust, alignment: .leading)
+                    .frame(width: frameWidth, height: adjust, alignment: .leading)
+
                     
                     
                     Section(header: Text("カテゴリー")
@@ -91,11 +96,15 @@ struct NewCreateView: View {
             }
             
             Section{
-                Button(action:
-                    viewModel.clickButton
-                ){
+                Button(action:{
+                    viewModel.clickButton()
+
+                    dismiss()
+
+                }) {
                     Text("作成する")
                         .frame(width: frameWidth, height: 60)
+
                 }
                 .frame(width: frameWidth - 100, height: 60)
                 .foregroundColor(!viewModel.canCreate ? Color.black : Color.white)
@@ -104,11 +113,7 @@ struct NewCreateView: View {
                 .cornerRadius(15)
                 
             }
-
-
         }
-            
-
     }
 }
 

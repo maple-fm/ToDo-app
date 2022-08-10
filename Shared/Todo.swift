@@ -7,13 +7,14 @@
 
 import Foundation
 
-struct Todo{
+struct Todo: Identifiable, Codable {
+    var id = UUID()
     var name: String // タスク名
-    var deadline: String // 期日
+    var deadline: Date // 期日
     var category: Int // カテゴリー
     var description: String // 詳細
 
-    init(name: String = "", deadline: String = "", category: Int = 0, description: String = "") {
+    init(name: String = "", deadline: Date = Date.now, category: Int = 0, description: String = "") {
         self.name = name
         self.deadline = deadline
         self.category = category
