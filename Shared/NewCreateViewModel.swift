@@ -10,11 +10,14 @@ import Combine
 import SwiftUI
 
 class NewCreateViewModel: ObservableObject {
-    private var model: NewCreateModel = NewCreateModel()
+    private var model = NewCreateModel() {
+        didSet {
+            model.validation()
+        }
+    }
     @Published var name: String{
         didSet {
             model.name = name
-            canCreate = model.canCreate
         }
     } // タスク名
     @Published var deadline: Date {
@@ -30,18 +33,17 @@ class NewCreateViewModel: ObservableObject {
     @Published var description: String {
         didSet {
             model.description = description
-            canCreate = model.canCreate
         }
     } // 詳細
 
-    @Published var canCreate: Bool = false
-    @Published private(set) var todoList: [Todo] = []
+    @Published private(set) var canCreate = false
 
     init() {
         self.name = ""
         self.deadline = Date.now
         self.category = 0
         self.description = ""
+        model.canCreate.assign(to: &$canCreate)
     }
 
 
@@ -50,7 +52,6 @@ class NewCreateViewModel: ObservableObject {
         let todo = Todo(name: self.name, deadline: self.deadline, category: self.category, description: self.description)
         let task = model.createTodo(todo: todo)
 
-        self.todoList.append(contentsOf: task)
     }
 }
 

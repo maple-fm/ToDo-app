@@ -6,26 +6,18 @@
 //
 
 import Foundation
+import RealmSwift
+import Combine
 
 // セーブするロジックを書く
-struct NewCreateModel: Codable {
+struct NewCreateModel {
 
     var name: String? // タスク名
     var deadline: Date? // 期日
     var category: Int? // カテゴリー
     var description: String? // 詳細
 
-    var canCreate: Bool {
-        guard
-            let name = name,
-            let description = description
-        else { return false }
-
-        let isValidName = !name.isEmpty && name.count <= 20
-        let isValidDescription = !description.isEmpty
-
-        return isValidName && isValidDescription
-    }
+    let canCreate = PassthroughSubject<Bool, Never>()
 
     var taskList: [Todo] = []
 
@@ -39,10 +31,20 @@ struct NewCreateModel: Codable {
         print(taskList)
 
         // データを永続化する
-        
 
         return taskList
+    }
 
+    mutating func validation() {
+        guard
+            let name = name,
+            let description = description
+        else { return }
 
+        let isValidName = !name.isEmpty && name.count <= 20
+        let isValidDescription = !description.isEmpty
+
+        let canCreate = isValidName && isValidDescription
+        self.canCreate.send(canCreate)
     }
 }

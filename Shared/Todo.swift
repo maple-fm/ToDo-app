@@ -22,5 +22,3 @@ struct Todo: Identifiable, Codable {
     }
 
 }
-
-

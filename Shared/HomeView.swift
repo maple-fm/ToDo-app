@@ -23,9 +23,9 @@ struct HomeView: View {
         NavigationView {
             ZStack {
                 List {
-                    ForEach(viewModel.todoList) { task in
-                        Text(task.name)
-                    }
+//                    ForEach(viewModel.todoList) { task in
+//                        Text(task.name)
+//                    }
                 }
                 .navigationTitle("TODOリスト")
 
