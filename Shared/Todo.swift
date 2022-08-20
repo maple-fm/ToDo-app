@@ -6,19 +6,31 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct Todo: Identifiable, Codable {
-    var id = UUID()
-    var name: String // タスク名
-    var deadline: Date // 期日
-    var category: Int // カテゴリー
-    var description: String // 詳細
+class Todo: Object {
+    @Persisted var name: String // タスク名
+    @Persisted var deadline: Date // 期日
+    @Persisted var category: Category // カテゴリー
+    @Persisted var memo: String // 詳細
 
-    init(name: String = "", deadline: Date = Date.now, category: Int = 0, description: String = "") {
+    // イニシャライザを設定するとクラッシュが起きる
+    init(name: String, deadline: Date, category: Category, memo: String) {
         self.name = name
         self.deadline = deadline
         self.category = category
-        self.description = description
+        self.memo = memo
     }
 
+    convenience override init() {
+        self.init(name: "", deadline: Date.now, category: .others, memo: "")
+    }
+}
+
+
+enum Category: String, CaseIterable, PersistableEnum {
+    case work = "仕事"
+    case hobby = "遊び"
+    case study = "勉強"
+    case others = "その他"
 }

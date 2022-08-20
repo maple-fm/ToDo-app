@@ -8,16 +8,11 @@
 import SwiftUI
 
 struct NewCreateView: View {
-    var categories = ["仕事", "遊び", "勉強","その他" ]
 
     @ObservedObject var viewModel = NewCreateViewModel()
     @State private var close = false
-    @State var todo: Todo
-    @State private var data = Data()
-    private var adjust: CGFloat = 10
     @Environment(\.dismiss) var dismiss
-
-
+    private var adjust: CGFloat = 10
 
     private var frameWidth: CGFloat {
         UIScreen.main.bounds.width
@@ -27,8 +22,7 @@ struct NewCreateView: View {
         UIScreen.main.bounds.height / 20
     }
     
-    init(input: Todo) {
-        _todo = State(initialValue: input)
+    init() {
         UITableView.appearance().backgroundColor = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1)
     }
 
@@ -56,30 +50,25 @@ struct NewCreateView: View {
                     }
                     .frame(width: frameWidth, height: adjust, alignment: .leading)
 
-                    
-                    
                     Section(header: Text("カテゴリー")
                         .NewItem()
                         .frame(width: frameWidth, height: frameHeight-adjust, alignment: .leading)
 
                     ) {
                         Picker("選択してください", selection: $viewModel.category) {
-                            ForEach(0..<categories.count, id: \.self) { index in
-                                Text(self.categories[index])
+                            ForEach(Category.allCases, id: \.self) { (index) in
+                                Text(index.rawValue).tag(index)
                             }
                         }
 
                     }
 
-                    
                     Section(header: Text("詳細")
                         .NewItem()
                     ) {
                         TextField("入力してください", text: $viewModel.description)
                     }
                     .frame(width: frameWidth, height: frameHeight-adjust, alignment: .leading)
-
-
                 }
                 .navigationTitle(Text("新規作成"))
                 .border(Color.gray, width: 0.5)
@@ -119,7 +108,7 @@ struct NewCreateView: View {
 
 struct NewCreateView_Previews: PreviewProvider {
     static var previews: some View {
-        NewCreateView(input: Todo())
+        NewCreateView()
             
     }
 }

@@ -7,9 +7,10 @@
 
 import SwiftUI
 
+
 struct HomeView: View {
     @State private var newcreate = false
-    @ObservedObject var viewModel = NewCreateViewModel()
+    @ObservedObject var viewModel = HomeViewModel()
 
     private var frameWidth: CGFloat {
         UIScreen.main.bounds.width
@@ -23,11 +24,15 @@ struct HomeView: View {
         NavigationView {
             ZStack {
                 List {
-//                    ForEach(viewModel.todoList) { task in
-//                        Text(task.name)
-//                    }
+                        ForEach(viewModel.tasks, id:\.self) { task in
+                            VStack {
+                                Text(task.name)
+                                Text(task.memo)
+                            }
+
+                        }
+
                 }
-                .navigationTitle("TODOリスト")
 
                 Button(action: {
                     self.newcreate.toggle()
@@ -37,7 +42,7 @@ struct HomeView: View {
 
                 }
                 .sheet(isPresented: $newcreate){
-                    NewCreateView(input: Todo())
+                    NewCreateView()
                 }
                 .padding(EdgeInsets(
                     top: UIScreen.main.bounds.size.height-250 ,
@@ -45,6 +50,7 @@ struct HomeView: View {
                     bottom:0,
                     trailing: 0))
             }
+            .navigationTitle("TODOリスト")
         }
     }
 }
