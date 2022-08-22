@@ -25,16 +25,9 @@ struct NewCreateModel {
             let description = description
         else { return print("error")}
 
-//        let task = Todo()
-//        task.name = name
-//        task.deadline = deadline ?? Date.now
-//        task.category = category ?? .others
-//        task.memo = description
-
         let task = Todo(name: name, deadline: deadline ?? Date.now, category: category ?? .others, memo: description)
-
-        print("todoを作成しました")
-        print(task)
+//        print("todoを作成しました")
+//        print(task)
 
         // データを永続化する
 //        var config = Realm.Configuration().self
@@ -43,9 +36,7 @@ struct NewCreateModel {
         try! realm.write {
             realm.add(task)
         }
-
         let taskList = realm.objects(Todo.self)
-//        print(taskList)
     }
 
     mutating func validation() {
@@ -53,7 +44,6 @@ struct NewCreateModel {
             let name = name,
             let description = description
         else { return }
-
         let isValidName = !name.isEmpty && name.count <= 20
         let isValidDescription = !description.isEmpty
 

@@ -10,14 +10,24 @@ import RealmSwift
 
 struct HomeModel {
     var tasks: [Todo] = []
-    mutating func getTodo() {
-        let realm = try! Realm()
+    let dateFormatter = DateFormatter()
+    let realm = try! Realm()
 
+    mutating func getTodo() {
         tasks = Array(realm.objects(Todo.self))
 //        let task = tasks[index]
 //        let todo = Todo(name: task.name, deadline: task.deadline, category: task.category, memo: task.memo)
 
-        print(tasks)
+//        print(tasks)
 //        return tasks
+    }
+
+    func toString(deadline:Date) -> String{
+        dateFormatter.dateFormat = "yyyy/MM/dd"
+        return dateFormatter.string(from: deadline)
+    }
+
+    func deleteTodo() {
+        
     }
 }

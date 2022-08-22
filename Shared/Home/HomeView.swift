@@ -27,7 +27,12 @@ struct HomeView: View {
                     ForEach(viewModel.tasks, id:\.self) { task in
                         VStack {
                             Text(task.name)
+                            Text(viewModel.changeString(deadline: task.deadline))
+//                            Task(task.category)
+                            Text(task.category.rawValue).tag(task.category)
                             Text(task.memo)
+//                            Text(task.description)
+
                         }
                     }
                 }

@@ -27,5 +27,9 @@ class HomeViewModel: ObservableObject {
         tasks = homeModel.tasks
     }
 
+    func changeString(deadline:Date) -> String {
+        return homeModel.toString(deadline: deadline)
+    }
+
     
 }
