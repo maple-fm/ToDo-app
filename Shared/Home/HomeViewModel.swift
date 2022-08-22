@@ -9,9 +9,8 @@ import Foundation
 import Combine
 import SwiftUI
 
-@MainActor
 class HomeViewModel: ObservableObject {
-    @Published private(set) var homeModel = HomeModel()
+    private var homeModel = HomeModel()
     //    @Published var name = ""
 //    @Published var deadline = Date.now
 //    @Published var category = Category.others
@@ -19,9 +18,13 @@ class HomeViewModel: ObservableObject {
     @Published private(set) var tasks: [Todo] = []
 
     init() {
+        getTodo()
+
+    }
+
+    func getTodo() {
         homeModel.getTodo()
         tasks = homeModel.tasks
-
     }
 
     

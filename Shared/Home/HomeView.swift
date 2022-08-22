@@ -24,14 +24,12 @@ struct HomeView: View {
         NavigationView {
             ZStack {
                 List {
-                        ForEach(viewModel.tasks, id:\.self) { task in
-                            VStack {
-                                Text(task.name)
-                                Text(task.memo)
-                            }
-
+                    ForEach(viewModel.tasks, id:\.self) { task in
+                        VStack {
+                            Text(task.name)
+                            Text(task.memo)
                         }
-
+                    }
                 }
 
                 Button(action: {
@@ -41,7 +39,7 @@ struct HomeView: View {
                         .frame(width: 20.5, height: 30.5)
 
                 }
-                .sheet(isPresented: $newcreate){
+                .sheet(isPresented: $newcreate, onDismiss: viewModel.getTodo){
                     NewCreateView()
                 }
                 .padding(EdgeInsets(
@@ -51,6 +49,7 @@ struct HomeView: View {
                     trailing: 0))
             }
             .navigationTitle("TODOリスト")
+
         }
     }
 }
