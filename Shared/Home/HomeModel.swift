@@ -13,13 +13,12 @@ struct HomeModel {
     let dateFormatter = DateFormatter()
     let realm = try! Realm()
 
-    mutating func getTodo() {
-        tasks = Array(realm.objects(Todo.self))
-//        let task = tasks[index]
-//        let todo = Todo(name: task.name, deadline: task.deadline, category: task.category, memo: task.memo)
+    init() {
+        updateTodo()
+    }
 
-//        print(tasks)
-//        return tasks
+    mutating func updateTodo() {
+        tasks = Array(realm.objects(Todo.self))
     }
 
     func toString(deadline:Date) -> String{

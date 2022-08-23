@@ -12,6 +12,8 @@ struct HomeView: View {
     @State private var newcreate = false
     @ObservedObject var viewModel = HomeViewModel()
 
+    
+
     private var frameWidth: CGFloat {
         UIScreen.main.bounds.width
     }
@@ -23,37 +25,39 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                List {
-                    ForEach(viewModel.tasks, id:\.self) { task in
-                        VStack {
-                            Text(task.name)
-                            Text(viewModel.changeString(deadline: task.deadline))
-//                            Task(task.category)
-                            Text(task.category.rawValue).tag(task.category)
-                            Text(task.memo)
-//                            Text(task.description)
-
+                ScrollView {
+                    LazyVStack {
+                        ForEach(viewModel.tasks, id:\.self) { task in
+                            VStack(alignment: .leading) {
+                                Text(task.name)
+                                    .font(.title)
+                                    .bold()
+                                Text(viewModel.changeString(deadline: task.deadline))
+                                Text(task.category.rawValue).tag(task.category)
+                                Text(task.memo)
+                            }
                         }
                     }
+
+                    Button(action: {
+                        self.newcreate.toggle()
+                    }){
+                        Image("Floating Button")
+                            .frame(width: 20.5, height: 30.5)
+
+                    }
+                    .sheet(isPresented: $newcreate, onDismiss: viewModel.dismissActionSheet){
+                        NewCreateView()
+                    }
+                    .padding(EdgeInsets(
+                        top: UIScreen.main.bounds.size.height-250 ,
+                        leading: UIScreen.main.bounds.size.width-150,
+                        bottom:0,
+                        trailing: 0))
+                }
+                .navigationTitle("TODOリスト")
                 }
 
-                Button(action: {
-                    self.newcreate.toggle()
-                }){
-                    Image("Floating Button")
-                        .frame(width: 20.5, height: 30.5)
-
-                }
-                .sheet(isPresented: $newcreate, onDismiss: viewModel.getTodo){
-                    NewCreateView()
-                }
-                .padding(EdgeInsets(
-                    top: UIScreen.main.bounds.size.height-250 ,
-                    leading: UIScreen.main.bounds.size.width-150,
-                    bottom:0,
-                    trailing: 0))
-            }
-            .navigationTitle("TODOリスト")
 
         }
     }

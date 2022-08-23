@@ -130,7 +130,6 @@
 				F54DC2EF2872F5920087B68A /* Todo.swift */,
 				F5D62BF828AB4BA200BC490A /* Home */,
 				F5D62BF728AB4B9800BC490A /* NewCreate */,
-				F5D62BF928AB4BAA00BC490A /* Edit */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -210,13 +209,6 @@
 				F5D62BF228A3810D00BC490A /* HomeModel.swift */,
 			);
 			path = Home;
-			sourceTree = "<group>";
-		};
-		F5D62BF928AB4BAA00BC490A /* Edit */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Edit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -11,19 +11,14 @@ import SwiftUI
 
 class HomeViewModel: ObservableObject {
     private var homeModel = HomeModel()
-    //    @Published var name = ""
-//    @Published var deadline = Date.now
-//    @Published var category = Category.others
-//    @Published var description = ""
     @Published private(set) var tasks: [Todo] = []
 
     init() {
-        getTodo()
-
+        tasks = homeModel.tasks
     }
 
-    func getTodo() {
-        homeModel.getTodo()
+    func dismissActionSheet() {
+        homeModel.updateTodo()
         tasks = homeModel.tasks
     }
 
