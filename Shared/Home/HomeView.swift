@@ -36,29 +36,31 @@ struct HomeView: View {
                                 Text(task.category.rawValue).tag(task.category)
                                 Text(task.memo)
                             }
+                            .frame(width: 358, height: 111, alignment: .center)
+                            .background(Color.red)
+                            .cornerRadius(16)
                         }
+                        .padding(.top, 24)
                     }
-
-                    Button(action: {
-                        self.newcreate.toggle()
-                    }){
-                        Image("Floating Button")
-                            .frame(width: 20.5, height: 30.5)
-
-                    }
-                    .sheet(isPresented: $newcreate, onDismiss: viewModel.dismissActionSheet){
-                        NewCreateView()
-                    }
-                    .padding(EdgeInsets(
-                        top: UIScreen.main.bounds.size.height-250 ,
-                        leading: UIScreen.main.bounds.size.width-150,
-                        bottom:0,
-                        trailing: 0))
                 }
                 .navigationTitle("TODOリスト")
+
+                Button(action: {
+                    self.newcreate.toggle()
+                }){
+                    Image("Floating Button")
+                        .frame(width: 20.5, height: 30.5)
+
                 }
-
-
+                .sheet(isPresented: $newcreate, onDismiss: viewModel.dismissActionSheet){
+                    NewCreateView()
+                }
+                .padding(EdgeInsets(
+                    top: UIScreen.main.bounds.size.height-250 ,
+                    leading: UIScreen.main.bounds.size.width-150,
+                    bottom:0,
+                    trailing: 0))
+            }
         }
     }
 }
