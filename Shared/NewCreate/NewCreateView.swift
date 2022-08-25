@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewCreateView: View {
-
+    let coloredNavAppearance = UINavigationBarAppearance()
     @ObservedObject var viewModel = NewCreateViewModel()
     @State private var close = false
     @Environment(\.dismiss) var dismiss
@@ -23,14 +23,17 @@ struct NewCreateView: View {
     }
     
     init() {
-        UITableView.appearance().backgroundColor = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1)
+        coloredNavAppearance.configureWithOpaqueBackground()
+        coloredNavAppearance.backgroundColor = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1)
+        UINavigationBar.appearance().standardAppearance = coloredNavAppearance
+    //        UINavigationBar.appearance().scrollEdgeAppearance = coloredNavAppearance
     }
 
     var body: some View {
-
-        VStack{
-            NavigationView{
+        NavigationView{
+            VStack{
                 Form{
+//                    Color(UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1)).edgesIgnoringSafeArea(.all)
                     Section(header: Text("タスク名")
                         .NewItem()
                     ) {
@@ -60,7 +63,6 @@ struct NewCreateView: View {
                                 Text(index.rawValue).tag(index)
                             }
                         }
-
                     }
 
                     Section(header: Text("詳細")
@@ -70,21 +72,7 @@ struct NewCreateView: View {
                     }
                     .frame(width: frameWidth, height: frameHeight-adjust, alignment: .leading)
                 }
-                .navigationTitle(Text("新規作成"))
-                .border(Color.gray, width: 0.5)
-                .padding(.top, 10)
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationBarItems(
-                    trailing:
-                        Button("×"){
-                            dismiss()
-                        }
-                        .foregroundColor(Color.blue)
-                        .font(.largeTitle)
-                )
-            }
-            
-            Section{
+
                 Button(action:{
                     viewModel.clickButton()
 
@@ -100,9 +88,21 @@ struct NewCreateView: View {
                 .background(!viewModel.canCreate ? Color.gray : Color.blue)
                 .disabled(!viewModel.canCreate)
                 .cornerRadius(15)
-                
             }
+            .navigationTitle(Text("新規作成"))
+            //            .border(Color.gray, width: 0.5)
+            //            .padding(.top, 10)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationBarItems(
+                        trailing:
+                            Button("×"){
+                                dismiss()
+                            }
+                            .foregroundColor(Color.blue)
+                            .font(.largeTitle)
+                    )
         }
+
     }
 }
 
@@ -112,7 +112,6 @@ struct NewCreateView_Previews: PreviewProvider {
             
     }
 }
-
 
 extension Text {
     func NewItem() -> some View {

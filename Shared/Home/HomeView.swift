@@ -13,8 +13,6 @@ struct HomeView: View {
     @State var isChecked = false
     @ObservedObject var viewModel = HomeViewModel()
 
-    
-
     private var frameWidth: CGFloat {
         UIScreen.main.bounds.width
     }
@@ -26,6 +24,7 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             ZStack {
+                Color(UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1)).edgesIgnoringSafeArea(.all)
                 ScrollView {
                     LazyVStack {
                         ForEach(viewModel.tasks, id:\.self) { task in
@@ -33,17 +32,35 @@ struct HomeView: View {
                                 Spacer()
                                 Button(action: {
                                     viewModel.clickCheckButton(task: task)
-                                    // ここが無理矢理感がある
-                                    viewModel.dismissActionSheet()
                                 }) {
-                                    Image(systemName: task.done ? "checkmark.circle" : "circle")
-                                        .foregroundColor(.black)
+                                    if task.done {
+                                        Image(systemName: "checkmark.circle.fill")
+                                            .resizable()
+                                            .symbolRenderingMode(.palette)
+                                            .foregroundStyle(.white, Color(UIColor(red: 0.149, green: 0.33, blue: 0.796, alpha: 1)))
+//                                            .foregroundColor(.white)
+//                                            .foregroundColor(
+//                                                Color(UIColor(red: 0.149, green: 0.33, blue: 0.796, alpha: 1))
+//                                            )
+
+                                    } else {
+                                        Image(systemName: "circle.fill")
+                                            .resizable()
+//                                            .frame(width: 24, height: 24)
+                                            .foregroundColor(
+                                                Color(UIColor(red: 0.149, green: 0.33, blue: 0.796, alpha: 0.16))
+                                            )
+                                    }
                                 }
+
+                                .frame(width: 24, height: 24)
+//                                .frame(width: 100, height: 100)
 
                                 Spacer()
                                 VStack(alignment: .leading) {
                                     Text(task.name)
                                         .font(.title)
+                                        .foregroundColor(.white)
                                         .bold()
                                     Text(viewModel.changeString(deadline: task.deadline))
                                     Text(task.category.rawValue).tag(task.category)
@@ -54,7 +71,7 @@ struct HomeView: View {
 
                             }
                             .frame(width: 358, height: 111, alignment: .center)
-                            .background(colorChange(category: task.category.rawValue))
+                            .background(Color(colorChange(category: task.category.rawValue)))
                             .cornerRadius(16)
                         }
                         .padding(.top, 24)
@@ -89,15 +106,17 @@ struct HomeView_Previews: PreviewProvider {
     }
 }
 
-func colorChange(category: String) -> Color {
+func colorChange(category: String) -> UIColor {
+    var color:UIColor
     if category == "仕事" {
-        return Color.blue
+        color = UIColor(red: 0.307, green: 0.783, blue: 0.555, alpha: 1)
     } else if category == "勉強" {
-        return Color.green
+        color = UIColor(red: 0.459, green: 0.681, blue: 0.842, alpha: 1)
     } else if category == "遊び" {
-        return Color.red
-    } else if category == "その他" {
-        return Color.gray
+        color = UIColor(red: 0.635, green: 0.629, blue: 0.921, alpha: 1)
+    } else{
+        return UIColor(red: 0.31, green: 0.452, blue: 0.817, alpha: 1)
     }
-    return Color.clear
+
+    return color
 }

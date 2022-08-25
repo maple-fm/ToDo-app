@@ -10,7 +10,11 @@ import Combine
 import SwiftUI
 
 class HomeViewModel: ObservableObject {
-    private var homeModel = HomeModel()
+    private var homeModel = HomeModel() {
+        didSet {
+            tasks = homeModel.tasks
+        }
+    }
 //    @Published private(set) var isChecked = false
     @Published private(set) var tasks: [Todo] = []
 
@@ -18,9 +22,13 @@ class HomeViewModel: ObservableObject {
         tasks = homeModel.tasks
     }
 
-    func dismissActionSheet() {
+    func redraw() {
         homeModel.updateTodo()
-        tasks = homeModel.tasks
+
+    }
+
+    func dismissActionSheet() {
+        redraw()
     }
 
     func changeString(deadline:Date) -> String {
@@ -29,8 +37,7 @@ class HomeViewModel: ObservableObject {
 
     func clickCheckButton(task: Todo) {
         homeModel.isChecked(task: task)
-
+        redraw()
     }
 
-    
 }
