@@ -37,7 +37,7 @@ struct HomeView: View {
                                 Text(task.memo)
                             }
                             .frame(width: 358, height: 111, alignment: .center)
-                            .background(Color.red)
+                            .background(colorChange(category: task.category.rawValue))
                             .cornerRadius(16)
                         }
                         .padding(.top, 24)
@@ -72,3 +72,15 @@ struct HomeView_Previews: PreviewProvider {
     }
 }
 
+func colorChange(category: String) -> Color {
+    if category == "仕事" {
+        return Color.blue
+    } else if category == "勉強" {
+        return Color.green
+    } else if category == "遊び" {
+        return Color.red
+    } else if category == "その他" {
+        return Color.gray
+    }
+    return Color.clear
+}
