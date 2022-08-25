@@ -21,13 +21,6 @@ struct NewCreateView: View {
     private var frameHeight: CGFloat {
         UIScreen.main.bounds.height / 20
     }
-    
-    init() {
-        coloredNavAppearance.configureWithOpaqueBackground()
-        coloredNavAppearance.backgroundColor = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1)
-        UINavigationBar.appearance().standardAppearance = coloredNavAppearance
-    //        UINavigationBar.appearance().scrollEdgeAppearance = coloredNavAppearance
-    }
 
     var body: some View {
         NavigationView{
@@ -80,18 +73,23 @@ struct NewCreateView: View {
 
                 }) {
                     Text("作成する")
+                        .bold()
                         .frame(width: frameWidth, height: 60)
 
                 }
                 .frame(width: frameWidth - 100, height: 60)
-                .foregroundColor(!viewModel.canCreate ? Color.black : Color.white)
-                .background(!viewModel.canCreate ? Color.gray : Color.blue)
+                .foregroundColor(!viewModel.canCreate ?
+                                 Color(UIColor(red: 0.161, green: 0.176, blue: 0.212, alpha: 0.3)) :
+                                 Color(UIColor(red: 1, green: 1, blue: 1, alpha: 1)))
+                .background(!viewModel.canCreate ?
+                            Color(UIColor(red: 0.161, green: 0.176, blue: 0.212, alpha: 0.08)) :
+                            Color(UIColor(red: 0.149, green: 0.33, blue: 0.796, alpha: 1)))
                 .disabled(!viewModel.canCreate)
                 .cornerRadius(15)
             }
             .navigationTitle(Text("新規作成"))
             //            .border(Color.gray, width: 0.5)
-            //            .padding(.top, 10)
+//                        .padding(.top, 10)
                     .navigationBarTitleDisplayMode(.inline)
                     .navigationBarItems(
                         trailing:

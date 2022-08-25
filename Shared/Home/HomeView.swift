@@ -29,7 +29,6 @@ struct HomeView: View {
                     LazyVStack {
                         ForEach(viewModel.tasks, id:\.self) { task in
                             HStack(alignment: .center) {
-                                Spacer()
                                 Button(action: {
                                     viewModel.clickCheckButton(task: task)
                                 }) {
@@ -38,36 +37,29 @@ struct HomeView: View {
                                             .resizable()
                                             .symbolRenderingMode(.palette)
                                             .foregroundStyle(.white, Color(UIColor(red: 0.149, green: 0.33, blue: 0.796, alpha: 1)))
-//                                            .foregroundColor(.white)
-//                                            .foregroundColor(
-//                                                Color(UIColor(red: 0.149, green: 0.33, blue: 0.796, alpha: 1))
-//                                            )
-
                                     } else {
                                         Image(systemName: "circle.fill")
                                             .resizable()
-//                                            .frame(width: 24, height: 24)
                                             .foregroundColor(
                                                 Color(UIColor(red: 0.149, green: 0.33, blue: 0.796, alpha: 0.16))
                                             )
                                     }
                                 }
-
                                 .frame(width: 24, height: 24)
-//                                .frame(width: 100, height: 100)
+                                .padding(.leading, 16)
 
-                                Spacer()
                                 VStack(alignment: .leading) {
                                     Text(task.name)
                                         .font(.title)
                                         .foregroundColor(.white)
                                         .bold()
-                                    Text(viewModel.changeString(deadline: task.deadline))
-                                    Text(task.category.rawValue).tag(task.category)
                                     Text(task.memo)
-
+                                        .foregroundColor(Color(UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)))
+                                    Text(viewModel.changeString(deadline: task.deadline))
+                                        .foregroundColor(Color(UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)))
                                 }
-                                .padding(.trailing, 180)
+                                .padding(.leading, 16)
+                                Spacer()
 
                             }
                             .frame(width: 358, height: 111, alignment: .center)
