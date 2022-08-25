@@ -26,7 +26,9 @@ struct HomeModel {
         return dateFormatter.string(from: deadline)
     }
 
-    func deleteTodo() {
-        
+    func isChecked(task: Todo){
+        try! realm.write {
+            task.done.toggle()
+        }
     }
 }

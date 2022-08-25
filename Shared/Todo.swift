@@ -13,20 +13,20 @@ class Todo: Object {
     @Persisted var deadline: Date // 期日
     @Persisted var category: Category // カテゴリー
     @Persisted var memo: String // 詳細
+    @Persisted var done: Bool // タスクの完了
 
-    // イニシャライザを設定するとクラッシュが起きる
-    init(name: String, deadline: Date, category: Category, memo: String) {
+    init(name: String, deadline: Date, category: Category, memo: String, done: Bool) {
         self.name = name
         self.deadline = deadline
         self.category = category
         self.memo = memo
+        self.done = done
     }
 
     convenience override init() {
-        self.init(name: "", deadline: Date.now, category: .others, memo: "")
+        self.init(name: "", deadline: Date.now, category: .others, memo: "", done:false)
     }
 }
-
 
 enum Category: String, CaseIterable, PersistableEnum {
     case work = "仕事"

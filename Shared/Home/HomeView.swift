@@ -10,6 +10,7 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var newcreate = false
+    @State var isChecked = false
     @ObservedObject var viewModel = HomeViewModel()
 
     
@@ -28,13 +29,29 @@ struct HomeView: View {
                 ScrollView {
                     LazyVStack {
                         ForEach(viewModel.tasks, id:\.self) { task in
-                            VStack(alignment: .leading) {
-                                Text(task.name)
-                                    .font(.title)
-                                    .bold()
-                                Text(viewModel.changeString(deadline: task.deadline))
-                                Text(task.category.rawValue).tag(task.category)
-                                Text(task.memo)
+                            HStack(alignment: .center) {
+                                Spacer()
+                                Button(action: {
+                                    viewModel.clickCheckButton(task: task)
+                                    // ここが無理矢理感がある
+                                    viewModel.dismissActionSheet()
+                                }) {
+                                    Image(systemName: task.done ? "checkmark.circle" : "circle")
+                                        .foregroundColor(.black)
+                                }
+
+                                Spacer()
+                                VStack(alignment: .leading) {
+                                    Text(task.name)
+                                        .font(.title)
+                                        .bold()
+                                    Text(viewModel.changeString(deadline: task.deadline))
+                                    Text(task.category.rawValue).tag(task.category)
+                                    Text(task.memo)
+
+                                }
+                                .padding(.trailing, 180)
+
                             }
                             .frame(width: 358, height: 111, alignment: .center)
                             .background(colorChange(category: task.category.rawValue))
