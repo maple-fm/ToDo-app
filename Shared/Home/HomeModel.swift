@@ -27,10 +27,14 @@ struct HomeModel {
     }
 
     func getWeekDay(date: Date) -> String {
-        let weekDay = Calendar.current.component(.weekday, from: date)
-
-        // 曜日がひとつずれる
-        switch weekDay-1 {
+        var weekDay = Calendar.current.component(.weekday, from: date)
+        if weekDay - 1 == 0 {
+            weekDay = 7
+        }else {
+            weekDay -= 1
+        }
+        // 曜日がひとつずれるのを治したい
+        switch weekDay {
         case 1:
             return "月"
         case 2:
@@ -54,5 +58,16 @@ struct HomeModel {
         try! realm.write {
             task.done.toggle()
         }
+    }
+
+    func countDown(date:Date) -> String{
+        let date = Calendar.current.date(byAdding: .day, value: +1, to: date)!
+        let dateFormatter = DateComponentsFormatter()
+        let today = Date.now
+        dateFormatter.unitsStyle = .full
+        dateFormatter.allowedUnits = [.year, .month, .day]
+        let intervalTime = date.timeIntervalSince(today)
+        let deadline = dateFormatter.string(from: intervalTime)
+        return deadline!
     }
 }

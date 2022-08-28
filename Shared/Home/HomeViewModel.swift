@@ -15,7 +15,6 @@ class HomeViewModel: ObservableObject {
             tasks = homeModel.tasks
         }
     }
-//    @Published private(set) var isChecked = false
     @Published private(set) var tasks: [Todo] = []
 
     init() {
@@ -38,6 +37,11 @@ class HomeViewModel: ObservableObject {
     func clickCheckButton(task: Todo) {
         homeModel.isChecked(task: task)
         redraw()
+    }
+
+    func comparisonDate(deadline: Date) -> String {
+        return homeModel.countDown(date: deadline)
+
     }
 
 }

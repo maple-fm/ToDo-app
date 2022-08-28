@@ -12,6 +12,7 @@ struct HomeView: View {
     @State private var newcreate = false
     @State var isChecked = false
     @ObservedObject var viewModel = HomeViewModel()
+    let today = Date()
 
     private var frameWidth: CGFloat {
         UIScreen.main.bounds.width
@@ -24,7 +25,6 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color(UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1)).edgesIgnoringSafeArea(.all)
                 ScrollView {
                     LazyVStack {
                         ForEach(viewModel.tasks, id:\.self) { task in
@@ -54,17 +54,33 @@ struct HomeView: View {
                                         .foregroundColor(.white)
                                         .bold()
                                     Text(task.memo)
-                                        .foregroundColor(Color(UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)))
-                                    Text(viewModel.changeString(deadline: task.deadline))
-                                        .foregroundColor(Color(UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)))
+                                    HStack {
+                                        if task.deadline.compare(today) == .orderedDescending {
+                                            if viewModel.comparisonDate(deadline: task.deadline) == "0日" {
+                                                Text("今日まで")
+                                                    .foregroundColor(Color(UIColor(red: 1, green: 1, blue: 1, alpha: 1)))
+                                                    .background(Color(UIColor(red: 0.149, green: 0.33, blue: 0.796, alpha: 0.3)))
+                                                    .cornerRadius(4)
+                                            } else if viewModel.comparisonDate(deadline: task.deadline) == "1日" {
+                                                Text("1日前")
+                                                    .foregroundColor(Color(UIColor(red: 1, green: 1, blue: 1, alpha: 1)))
+                                                    .background(Color(UIColor(red: 0.975, green: 0.41, blue: 0.512, alpha: 1)))
+                                                    .cornerRadius(4)
+                                            }
+                                        }
+                                        Text(viewModel.changeString(deadline: task.deadline))
+
+                                    }
+
                                 }
+                                .foregroundColor(Color(UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)))
                                 .padding(.leading, 16)
                                 Spacer()
-
                             }
                             .frame(width: 358, height: 111, alignment: .center)
                             .background(Color(colorChange(category: task.category.rawValue)))
                             .cornerRadius(16)
+
                         }
                         .padding(.top, 24)
                     }
@@ -87,6 +103,7 @@ struct HomeView: View {
                     bottom:0,
                     trailing: 0))
             }
+            .background(Color(UIColor(red: 0.951, green: 0.956, blue: 0.97, alpha: 1)))
         }
     }
 }
