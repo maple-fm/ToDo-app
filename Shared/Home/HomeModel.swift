@@ -18,7 +18,7 @@ struct HomeModel {
     }
 
     mutating func updateTodo() {
-        tasks = Array(realm.objects(Todo.self))
+        tasks = Array(realm.objects(Todo.self).sorted(byKeyPath: "deadline"))
     }
 
     func toString(deadline:Date) -> String{

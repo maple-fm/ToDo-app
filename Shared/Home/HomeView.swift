@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct HomeView: View {
     @State private var newcreate = false
     @State var isChecked = false
@@ -67,6 +66,11 @@ struct HomeView: View {
                                                     .background(Color(UIColor(red: 0.975, green: 0.41, blue: 0.512, alpha: 1)))
                                                     .cornerRadius(4)
                                             }
+                                        } else {
+                                            Text("期限が過ぎています")
+                                                .foregroundColor(Color(UIColor(red: 1, green: 1, blue: 1, alpha: 1)))
+                                                .background(.black)
+                                                .cornerRadius(4)
                                         }
                                         Text(viewModel.changeString(deadline: task.deadline))
 
@@ -92,7 +96,6 @@ struct HomeView: View {
                 }){
                     Image("Floating Button")
                         .frame(width: 20.5, height: 30.5)
-
                 }
                 .sheet(isPresented: $newcreate, onDismiss: viewModel.dismissActionSheet){
                     NewCreateView()
