@@ -53,23 +53,29 @@ struct HomeView: View {
                                         .foregroundColor(.white)
                                         .bold()
                                     Text(task.memo)
+                                        .frame(width: 286, alignment: .leading)
+                                        .lineLimit(1)
                                     HStack {
                                         if task.deadline.compare(today) == .orderedDescending {
-                                            if viewModel.comparisonDate(deadline: task.deadline) == "0日" {
+                                            if viewModel.comparisonDate(deadline: task.deadline) == "0" {
                                                 Text("今日まで")
+                                                    .padding(4)
                                                     .foregroundColor(Color(UIColor(red: 1, green: 1, blue: 1, alpha: 1)))
                                                     .background(Color(UIColor(red: 0.149, green: 0.33, blue: 0.796, alpha: 0.3)))
                                                     .cornerRadius(4)
-                                            } else if viewModel.comparisonDate(deadline: task.deadline) == "1日" {
+
+                                            } else if viewModel.comparisonDate(deadline: task.deadline) == "1" {
                                                 Text("1日前")
+                                                    .padding(4)
                                                     .foregroundColor(Color(UIColor(red: 1, green: 1, blue: 1, alpha: 1)))
                                                     .background(Color(UIColor(red: 0.975, green: 0.41, blue: 0.512, alpha: 1)))
                                                     .cornerRadius(4)
                                             }
                                         } else {
                                             Text("期限が過ぎています")
+                                                .padding(4)
                                                 .foregroundColor(Color(UIColor(red: 1, green: 1, blue: 1, alpha: 1)))
-                                                .background(.black)
+                                                .background(.red)
                                                 .cornerRadius(4)
                                         }
                                         Text(viewModel.changeString(deadline: task.deadline))

@@ -25,7 +25,7 @@ struct NewCreateModel {
             let description = description
         else { return print("error")}
 
-        let task = Todo(name: name, deadline: deadline ?? Date.now, category: category ?? .others, memo: description, done: false)
+        let task = Todo(name: name, deadline: deadline ?? Date(), category: category ?? .others, memo: description, done: false)
 //        print("todoを作成しました")
 //        print(task)
 

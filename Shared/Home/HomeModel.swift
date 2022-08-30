@@ -11,10 +11,12 @@ import RealmSwift
 struct HomeModel {
     var tasks: [Todo] = []
     let dateFormatter = DateFormatter()
+    let calendar = Calendar(identifier: .gregorian)
     let realm = try! Realm()
 
     init() {
         updateTodo()
+        dateFormatter.timeZone = TimeZone(identifier: "Asia/Tokyo")
     }
 
     mutating func updateTodo() {
@@ -27,6 +29,7 @@ struct HomeModel {
     }
 
     func getWeekDay(date: Date) -> String {
+        let jpTime = dateFormatter.string(from: date)
         var weekDay = Calendar.current.component(.weekday, from: date)
         if weekDay - 1 == 0 {
             weekDay = 7
@@ -61,12 +64,13 @@ struct HomeModel {
     }
 
     func countDown(date:Date) -> String{
-        let date = Calendar.current.date(byAdding: .day, value: +1, to: date)!
         let dateFormatter = DateComponentsFormatter()
-        let today = Date.now
-        dateFormatter.unitsStyle = .full
-        dateFormatter.allowedUnits = [.year, .month, .day]
-        let intervalTime = date.timeIntervalSince(today)
+        let today = Date()
+        let year = calendar.component(.year, from: today)
+        let month = calendar.component(.month, from: today)
+        let day = calendar.component(.day, from: today)
+        let endOfToday = calendar.date(from: DateComponents(year: year, month: month, day:day, hour: 23, minute: 59, second: 59))
+        let intervalTime = date.timeIntervalSince(endOfToday!)/24/60/60
         let deadline = dateFormatter.string(from: intervalTime)
         return deadline!
     }

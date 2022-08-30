@@ -40,8 +40,8 @@ class HomeViewModel: ObservableObject {
     }
 
     func comparisonDate(deadline: Date) -> String {
-        return homeModel.countDown(date: deadline)
-
+        let countdown = homeModel.countDown(date: deadline)
+        return countdown
     }
 
 }
